@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin, type Product } from "@/lib/supabase";
 import { deleteProduct } from "./actions";
+import AdminHeader from "./components/AdminHeader";
 
 const badgeStyle: Record<string, string> = {
   중고기계: "bg-orange-100 text-orange-700",
@@ -17,16 +18,7 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Admin Header */}
-      <header className="bg-[#0d2444] text-white px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="font-bold text-lg">AktechReverse</span>
-          <span className="text-blue-300 text-sm">관리자</span>
-        </div>
-        <Link href="/" className="text-sm text-gray-300 hover:text-white">
-          ← 사이트로 이동
-        </Link>
-      </header>
+      <AdminHeader />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Title + Add Button */}

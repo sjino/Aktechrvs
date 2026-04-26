@@ -1,8 +1,15 @@
 "use server";
 
 import { supabaseAdmin } from "@/lib/supabase";
+import { createAuthClient } from "@/lib/supabase-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
+export async function signOut() {
+  const supabase = await createAuthClient();
+  await supabase.auth.signOut();
+  redirect("/admin/login");
+}
 
 async function uploadImage(file: File): Promise<string | null> {
   const ext = file.name.split(".").pop() ?? "jpg";

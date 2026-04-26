@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin, type Product } from "@/lib/supabase";
 import { updateProduct } from "../../../actions";
+import AdminHeader from "../../../components/AdminHeader";
 
 const categories = ["중고기계", "신품기계", "기계부품"];
 
@@ -24,15 +25,7 @@ export default async function EditProductPage({
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-[#0d2444] text-white px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="font-bold text-lg">AktechReverse</span>
-          <span className="text-blue-300 text-sm">관리자</span>
-        </div>
-        <Link href="/admin" className="text-sm text-gray-300 hover:text-white">
-          ← 목록으로
-        </Link>
-      </header>
+      <AdminHeader backHref="/admin" backLabel="← 목록으로" />
 
       <main className="max-w-2xl mx-auto px-4 py-8">
         <h1 className="text-xl font-bold text-gray-800 mb-6">제품 수정</h1>
