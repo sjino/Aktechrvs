@@ -9,10 +9,11 @@ const badgeStyle: Record<string, string> = {
 };
 
 export default async function AdminPage() {
-  const { data: products = [], error } = await supabaseAdmin
+  const { data, error } = await supabaseAdmin
     .from("products")
     .select("*")
     .order("created_at", { ascending: false });
+  const products = data ?? [];
 
   return (
     <div className="min-h-screen bg-gray-100">
