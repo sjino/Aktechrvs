@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import KakaoMap from "./KakaoMap";
@@ -26,7 +25,7 @@ export default function LocationPage() {
             <div className="flex flex-col lg:flex-row gap-8">
 
               {/* 지도 영역 */}
-              <div className="flex-1 rounded-lg overflow-hidden border border-gray-200">
+              <div className="w-full flex-1 lg:self-start rounded-lg overflow-hidden border border-gray-200">
                 <KakaoMap />
               </div>
 
@@ -74,13 +73,6 @@ export default function LocationPage() {
                   </ul>
                 </div>
 
-                {/* 견적 버튼 */}
-                <Link
-                  href="/contact"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded text-center text-sm transition-colors"
-                >
-                  견적 요청하기
-                </Link>
               </div>
             </div>
 
