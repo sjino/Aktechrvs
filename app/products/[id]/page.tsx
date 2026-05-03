@@ -85,7 +85,7 @@ export default async function ProductDetailPage({
             </div>
 
             {/* 정보 */}
-            <div className="flex-1 p-8 flex flex-col gap-4">
+            <div className="flex-1 p-4 sm:p-8 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeStyle[p.category]}`}>
                   {p.category}
@@ -93,7 +93,7 @@ export default async function ProductDetailPage({
                 <span className="text-xs text-gray-400">등록일 {formatDate(p.created_at)}</span>
               </div>
 
-              <h1 className="text-2xl font-bold text-gray-900 leading-snug">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
                 {p.type}
               </h1>
 

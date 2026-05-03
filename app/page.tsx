@@ -8,29 +8,29 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Banner */}
-      <section className="relative bg-[#0d2444] text-white overflow-hidden" style={{ minHeight: "520px" }}>
+      <section className="relative bg-[#0d2444] text-white overflow-hidden" style={{ minHeight: "420px" }}>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0d2444] via-[#163566] to-[#1a4a8a] opacity-90" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex flex-col gap-6">
-          <p className="text-blue-300 text-sm font-semibold uppercase tracking-widest">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-28 flex flex-col gap-5">
+          <p className="text-blue-300 text-xs sm:text-sm font-semibold uppercase tracking-widest">
             Machine Trading Specialist
           </p>
-          <h1 className="text-5xl font-bold leading-tight max-w-2xl">
+          <h1 className="text-3xl sm:text-5xl font-bold leading-tight max-w-2xl">
             중고·신품 기계 및<br />기계 부품 전문 유통
           </h1>
-          <p className="text-gray-300 text-lg max-w-xl leading-relaxed">
-            AktechReverse는 다양한 산업용 기계와 부품을<br />
+          <p className="text-gray-300 text-base sm:text-lg max-w-xl leading-relaxed">
+            AktechReverse는 다양한 산업용 기계와 부품을
             합리적인 가격에 신속하게 공급합니다.
           </p>
-          <div className="flex gap-4 mt-2">
+          <div className="flex flex-col sm:flex-row gap-3 mt-1">
             <Link
               href="/products"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded transition-colors text-center"
             >
               제품 보기
             </Link>
             <Link
               href="/contact"
-              className="border border-white/50 hover:border-white text-white font-semibold px-8 py-3 rounded transition-colors hover:bg-white/10"
+              className="border border-white/50 hover:border-white text-white font-semibold px-8 py-3 rounded transition-colors hover:bg-white/10 text-center"
             >
               문의하기
             </Link>
@@ -43,7 +43,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="text-blue-600 text-sm font-semibold uppercase tracking-widest mb-2">PRODUCT</p>
-            <h2 className="text-3xl font-bold text-[#0d2444]">취급 품목</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0d2444]">취급 품목</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
@@ -115,11 +115,11 @@ export default function Home() {
       </section>
 
       {/* About / CTA Banner */}
-      <section className="bg-[#0d2444] py-16">
+      <section className="bg-[#0d2444] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-2">About Us</p>
-            <h2 className="text-3xl font-bold text-white mb-4">신뢰할 수 있는 기계 유통 파트너</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">신뢰할 수 있는 기계 유통 파트너</h2>
             <p className="text-gray-400 max-w-xl leading-relaxed">
               AktechReverse는 중고·신품 기계와 기계 부품을 전문으로 취급하는 유통기업입니다.
               국내외 다양한 공급망을 통해 폭넓은 기계 라인업을 갖추고,

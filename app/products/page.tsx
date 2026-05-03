@@ -81,7 +81,7 @@ export default async function ProductsPage({
         </h1>
 
         {/* Category Tabs */}
-        <div className="flex gap-1 mb-4 border-b border-gray-200">
+        <div className="flex gap-1 mb-4 border-b border-gray-200 overflow-x-auto scrollbar-none">
           {categories.map((cat) => {
             const isActive = category === cat;
             return (
@@ -102,7 +102,7 @@ export default async function ProductsPage({
         </div>
 
         {/* Result Count + Pagination (top) */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <p className="text-xs text-gray-500">
             검색결과:{" "}
             <span className="font-semibold text-gray-700">{filtered.length}건</span>
@@ -129,16 +129,16 @@ export default async function ProductsPage({
             paged.map((product: Product, idx: number) => (
               <div
                 key={product.id}
-                className={`flex items-start gap-4 px-5 py-4 hover:bg-gray-50 transition-colors ${
+                className={`flex items-start gap-3 px-4 sm:px-5 py-4 hover:bg-gray-50 transition-colors ${
                   idx !== 0 ? "border-t border-gray-100" : ""
                 }`}
               >
                 {/* Thumbnail */}
-                <div className="w-[90px] h-[72px] shrink-0 bg-gray-100 border border-gray-200 rounded overflow-hidden flex items-center justify-center">
+                <div className="w-16 h-14 sm:w-[90px] sm:h-[72px] shrink-0 bg-gray-100 border border-gray-200 rounded overflow-hidden flex items-center justify-center">
                   {product.image_url ? (
                     <img src={product.image_url} alt={product.type} className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-3xl text-gray-300">
+                    <span className="text-2xl sm:text-3xl text-gray-300">
                       {categoryIcon[product.category] ?? "⚙️"}
                     </span>
                   )}
@@ -146,32 +146,32 @@ export default async function ProductsPage({
 
                 {/* Info */}
                 <div className="flex-1 min-w-0 pt-0.5">
-                  <Link
-                    href={`/products/${product.id}`}
-                    className="text-blue-700 hover:underline font-medium text-sm leading-snug"
-                  >
-                    {product.type}
-                    <span className="text-gray-400 mx-1.5">|</span>
-                    {product.manufacturer}
-                    <span className="text-gray-400 mx-1.5">|</span>
-                    {product.model}
-                    <span className="text-gray-400 mx-1.5">|</span>
-                    AktechReverse
-                  </Link>
-                  <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{product.description}</p>
+                  <div className="flex items-start justify-between gap-2">
+                    <Link
+                      href={`/products/${product.id}`}
+                      className="text-blue-700 hover:underline font-medium text-sm leading-snug"
+                    >
+                      {product.type}
+                      <span className="text-gray-400 mx-1">|</span>
+                      {product.manufacturer}
+                      <span className="text-gray-400 mx-1">|</span>
+                      {product.model}
+                      <span className="hidden sm:inline text-gray-400 mx-1">|</span>
+                      <span className="hidden sm:inline">AktechReverse</span>
+                    </Link>
+                    <span className="text-[11px] text-gray-400 shrink-0 whitespace-nowrap">
+                      {formatDate(product.created_at)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1.5 leading-relaxed line-clamp-2">{product.description}</p>
                   <div className="flex items-center gap-3 mt-2">
                     <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${badgeStyle[product.category]}`}>
                       {product.category}
                     </span>
                     {product.specs[0] && (
-                      <span className="text-[11px] text-gray-400">{product.specs[0]}</span>
+                      <span className="text-[11px] text-gray-400 truncate">{product.specs[0]}</span>
                     )}
                   </div>
-                </div>
-
-                {/* Date */}
-                <div className="text-xs text-gray-400 shrink-0 pt-0.5 whitespace-nowrap">
-                  [{formatDate(product.created_at)}]
                 </div>
               </div>
             ))
