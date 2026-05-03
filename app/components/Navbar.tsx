@@ -19,7 +19,7 @@ const navItems = [
     label: "회사소개",
     children: [
       { href: "/about", label: "회사소개" },
-      { href: "/contact", label: "오시는 길" },
+      { href: "/location", label: "오시는 길" },
     ],
   },
   {
@@ -152,7 +152,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); setMegaOpen(false); }}
-              className="flex items-center bg-blue-600 text-white text-sm font-semibold px-5 rounded hover:bg-blue-700 transition-colors"
+              className="self-center bg-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-blue-700 transition-colors"
             >
               견적 요청
             </Link>
