@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createProduct } from "../../actions";
 import AdminHeader from "../../components/AdminHeader";
+import ImageManager from "../components/ImageManager";
 
 const categories = ["중고기계", "신품기계", "기계부품"];
 
@@ -89,13 +90,7 @@ export default function NewProductPage() {
           {/* 이미지 */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">제품 사진</label>
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-900 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
-            />
-            <p className="text-xs text-gray-400 mt-1">JPG, PNG, WEBP · 최대 10MB</p>
+            <ImageManager existingUrls={[]} />
           </div>
 
           {/* 버튼 */}

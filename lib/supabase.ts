@@ -19,6 +19,7 @@ export type Product = {
   description: string;
   specs: string[];
   image_url: string | null;
+  image_urls: string[] | null;
   created_at: string;
   updated_at: string;
 };

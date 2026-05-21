@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { supabaseAdmin, type Product } from "@/lib/supabase";
 import { updateProduct } from "../../../actions";
 import AdminHeader from "../../../components/AdminHeader";
+import ImageManager from "../../components/ImageManager";
 
 const categories = ["중고기계", "신품기계", "기계부품"];
 
@@ -107,24 +108,15 @@ export default async function EditProductPage({
           {/* 이미지 */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">제품 사진</label>
-            {p.image_url && (
-              <div className="mb-2">
-                <p className="text-xs text-gray-500 mb-1">현재 이미지</p>
-                <img
-                  src={p.image_url}
-                  alt="현재 제품 이미지"
-                  className="w-40 h-32 object-cover rounded border border-gray-200"
-                />
-              </div>
-            )}
-            <input type="hidden" name="existing_image_url" value={p.image_url ?? ""} />
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-900 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+            <ImageManager
+              existingUrls={
+                p.image_urls?.length
+                  ? p.image_urls
+                  : p.image_url
+                  ? [p.image_url]
+                  : []
+              }
             />
-            <p className="text-xs text-gray-400 mt-1">새 파일 선택 시 기존 이미지가 교체됩니다 · 최대 10MB</p>
           </div>
 
           {/* 버튼 */}

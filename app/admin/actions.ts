@@ -42,13 +42,16 @@ function parseSpecs(raw: string): string[] {
   return raw.split("\n").map((s) => s.trim()).filter(Boolean);
 }
 
-export async function createProduct(formData: FormData) {
-  const imageFile = formData.get("image") as File | null;
-  let image_url: string | null = null;
+// ImageManager에서 파일 선택 즉시 호출 — URL 반환
+export async function uploadSingleImage(formData: FormData): Promise<string | null> {
+  const file = formData.get("file") as File;
+  if (!file || file.size === 0) return null;
+  return uploadImage(file);
+}
 
-  if (imageFile && imageFile.size > 0) {
-    image_url = await uploadImage(imageFile);
-  }
+export async function createProduct(formData: FormData) {
+  const image_urls = (formData.getAll("image_urls") as string[]).filter(Boolean);
+  const image_url = image_urls[0] ?? null;
 
   const { error } = await supabaseAdmin.from("products").insert({
     category: formData.get("category"),
@@ -58,6 +61,7 @@ export async function createProduct(formData: FormData) {
     description: formData.get("description"),
     specs: parseSpecs(formData.get("specs") as string),
     image_url,
+    image_urls,
   });
 
   if (error) throw new Error(error.message);
@@ -68,16 +72,24 @@ export async function createProduct(formData: FormData) {
 }
 
 export async function updateProduct(id: number, formData: FormData) {
-  const imageFile = formData.get("image") as File | null;
-  const existingImageUrl = formData.get("existing_image_url") as string | null;
+  const image_urls = (formData.getAll("image_urls") as string[]).filter(Boolean);
+  const image_url = image_urls[0] ?? null;
 
-  let image_url: string | null = existingImageUrl || null;
+  // 제거된 이미지를 스토리지에서 삭제
+  const { data: current } = await supabaseAdmin
+    .from("products")
+    .select("image_url, image_urls")
+    .eq("id", id)
+    .single();
 
-  if (imageFile && imageFile.size > 0) {
-    // 기존 이미지 삭제 후 새 이미지 업로드
-    if (existingImageUrl) await deleteImage(existingImageUrl);
-    image_url = await uploadImage(imageFile);
-  }
+  const originalUrls: string[] = current?.image_urls?.length
+    ? current.image_urls
+    : current?.image_url
+    ? [current.image_url]
+    : [];
+
+  const removed = originalUrls.filter((url) => !image_urls.includes(url));
+  await Promise.all(removed.map(deleteImage));
 
   const { error } = await supabaseAdmin
     .from("products")
@@ -89,6 +101,7 @@ export async function updateProduct(id: number, formData: FormData) {
       description: formData.get("description"),
       specs: parseSpecs(formData.get("specs") as string),
       image_url,
+      image_urls,
     })
     .eq("id", id);
 
@@ -100,14 +113,19 @@ export async function updateProduct(id: number, formData: FormData) {
 }
 
 export async function deleteProduct(id: number) {
-  // 이미지도 함께 삭제
   const { data } = await supabaseAdmin
     .from("products")
-    .select("image_url")
+    .select("image_url, image_urls")
     .eq("id", id)
     .single();
 
-  if (data?.image_url) await deleteImage(data.image_url);
+  const allUrls: string[] = [
+    ...(data?.image_urls ?? []),
+    ...(data?.image_url && !data?.image_urls?.includes(data.image_url)
+      ? [data.image_url]
+      : []),
+  ];
+  await Promise.all(allUrls.map(deleteImage));
 
   const { error } = await supabaseAdmin.from("products").delete().eq("id", id);
   if (error) throw new Error(error.message);

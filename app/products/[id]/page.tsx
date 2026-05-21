@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { supabase, type Product } from "@/lib/supabase";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import ImageGallery from "./ImageGallery";
 
 const badgeStyle: Record<string, string> = {
   중고기계: "bg-orange-100 text-orange-700 border border-orange-200",
@@ -70,18 +71,23 @@ export default async function ProductDetailPage({
           <div className="flex flex-col md:flex-row">
 
             {/* 이미지 */}
-            <div className="md:w-[360px] shrink-0 bg-gray-100 flex items-center justify-center min-h-[280px]">
-              {p.image_url ? (
-                <img
-                  src={p.image_url}
-                  alt={p.type}
-                  className="w-full h-full object-cover max-h-[360px]"
-                />
-              ) : (
-                <span className="text-7xl text-gray-300">
-                  {categoryIcon[p.category] ?? "⚙️"}
-                </span>
-              )}
+            <div className="md:w-[360px] shrink-0 overflow-hidden">
+              {(() => {
+                const images = p.image_urls?.length
+                  ? p.image_urls
+                  : p.image_url
+                  ? [p.image_url]
+                  : [];
+                return images.length > 0 ? (
+                  <ImageGallery images={images} alt={p.type} />
+                ) : (
+                  <div className="flex items-center justify-center bg-gray-100 min-h-[280px]">
+                    <span className="text-7xl text-gray-300">
+                      {categoryIcon[p.category] ?? "⚙️"}
+                    </span>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* 정보 */}
