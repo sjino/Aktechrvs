@@ -20,6 +20,9 @@ export default function AdminHeader({
         <Link href={backHref} className="text-sm text-gray-300 hover:text-white">
           {backLabel}
         </Link>
+        <Link href="/admin/settings" className="text-sm text-gray-300 hover:text-white">
+          계정 설정
+        </Link>
         <form action={signOut}>
           <button
             type="submit"

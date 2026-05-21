@@ -81,7 +81,7 @@ export default async function AdminPage() {
                         >
                           수정
                         </Link>
-                        <form action={deleteProduct.bind(null, p.id)}>
+                        <form action={deleteProduct.bind(null, p.id)} className="contents">
                           <button
                             type="submit"
                             className="text-xs text-red-500 hover:underline font-medium"
