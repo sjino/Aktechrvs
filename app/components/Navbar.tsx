@@ -4,7 +4,14 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 
 const navItems = [
-  { href: "/", label: "홈", children: [] },
+  {
+    href: "/about",
+    label: "회사소개",
+    children: [
+      { href: "/about", label: "회사소개" },
+      { href: "/location", label: "오시는 길" },
+    ],
+  },
   {
     href: "/products",
     label: "제품",
@@ -12,14 +19,6 @@ const navItems = [
       { href: "/products?category=중고기계", label: "중고기계" },
       { href: "/products?category=신품기계", label: "신품기계" },
       { href: "/products?category=기계부품", label: "기계부품" },
-    ],
-  },
-  {
-    href: "/about",
-    label: "회사소개",
-    children: [
-      { href: "/about", label: "회사소개" },
-      { href: "/location", label: "오시는 길" },
     ],
   },
   {
@@ -56,7 +55,7 @@ export default function Navbar() {
     <>
       {/* Top Bar */}
       <div className="bg-[#0d2444] text-gray-300 text-xs py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-8 flex justify-between items-center">
           <span>중고·신품 기계 및 기계 부품 전문 유통기업</span>
           <div className="hidden sm:flex items-center gap-5">
             <span>📞 010-3766-6519</span>
@@ -67,7 +66,7 @@ export default function Navbar() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[70px] flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-8 h-[70px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2" onClick={() => setMegaOpen(false)}>
             <span className="text-2xl font-bold text-[#0d2444] tracking-tight">
               Aktech<span className="text-blue-600">Reverse</span>
@@ -75,27 +74,27 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-stretch h-full gap-8">
+          <nav className="hidden md:flex items-stretch h-full gap-6">
             {navItems.map((item) =>
               item.children.length === 0 ? (
                 <Link
                   key={item.href}
                   href={item.href}
                   onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); setMegaOpen(false); }}
-                  className="flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
+                  className="flex items-center h-full px-5 text-base font-medium text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   {item.label}
                 </Link>
               ) : (
                 <div
                   key={item.href}
-                  className="relative flex items-center"
+                  className="relative flex items-stretch px-5"
                   onMouseEnter={() => handleEnter(item.label)}
                   onMouseLeave={handleLeave}
                 >
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-1 h-full text-base font-medium transition-colors ${
                       megaOpen && activeSection === item.label
                         ? "text-blue-600"
                         : "text-gray-700 hover:text-blue-600"

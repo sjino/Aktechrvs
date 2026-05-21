@@ -18,6 +18,13 @@ export default function Footer() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
             <div>
+              <p className="text-white font-semibold mb-3">회사</p>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="hover:text-white transition-colors">회사소개</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">오시는 길</Link></li>
+              </ul>
+            </div>
+            <div>
               <p className="text-white font-semibold mb-3">제품</p>
               <ul className="space-y-2">
                 <li><Link href="/products?category=중고기계" className="hover:text-white transition-colors">중고 기계</Link></li>
@@ -30,13 +37,6 @@ export default function Footer() {
               <ul className="space-y-2">
                 <li><Link href="/contact" className="hover:text-white transition-colors">견적 요청</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition-colors">상담 문의</Link></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-white font-semibold mb-3">회사</p>
-              <ul className="space-y-2">
-                <li><Link href="/about" className="hover:text-white transition-colors">회사소개</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">오시는 길</Link></li>
               </ul>
             </div>
           </div>
